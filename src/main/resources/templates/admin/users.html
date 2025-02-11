@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{base::layout(~{::section})}">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Home</title>
+</head>
+
+<body>
+	<section>
+		<div class="row">
+			<div class="col-md-10 offset-md-1 mt-3">
+				<div class="card card-sh">
+					<div class="card-header text-center">
+						<p class="fs-4 fw-bold" th:if="${userType==1}">User Details</p>
+						<p class="fs-4 fw-bold" th:if="${userType==2}">Admin Details</p>
+						<th:block th:if="${session.succMsg}">
+							<p class="text-success fw-bold">[[${session.succMsg}]]</p>
+							<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+						</th:block>
+						<th:block th:if="${session.errMsg}">
+							<p class="text-danger fw-bold">[[${session.errMsg}]]</p>
+							<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+						</th:block>
+					</div>
+					<div class="card-body p-4">
+						<table class="table">
+							<thead>
+								<tr>
+									<th scope="col">S.no</th>
+									<th scope="col">Image</th>
+									<th scope="col">Name</th>
+									<th scope="col">Email</th>
+									<th scope="col">Phone</th>
+									<th scope="col">Address</th>
+									<th scope="col">Status</th>
+									<th scope="col">Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="u,c:${users}">
+									<th scope="row">[[${c.count}]]</th>
+									<td>
+										<img th:src="@{'/img/profile_img/'+${u.imageName}}" width="50px" height="50px">
+									</td>
+									<td>[[${u.name}]]</td>
+									<td>[[${u.email}]]</td>
+									<td>[[${u.phone}]]</td>
+									<td>
+										[[${u.houseNo}]], [[${u.street}]],<br>
+										[[${u.place}]], [[${u.district}]],<br>
+										[[${u.state}]],<br>
+										<span class="fw-bold">Pincode: </span>[[${u.pincode}]]
+									</td>
+									<td>[[${u.isEnabled}]]</td>
+									<td>
+										<a th:href="@{'/admin/updateStatus?status=true&id='+${u.id}+'&type='+${userType}}"
+											class="btn btn-sm btn-primary">
+											<i class="fa-solid fa-check"></i> Active</a>
+										<a th:href="@{'/admin/updateStatus?status=false&id='+${u.id}+'&type='+${userType}}"
+											class="btn btn-sm btn-danger">
+											<i class="fa-solid fa-ban"></i> Inactive</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+
+</html>

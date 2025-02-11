@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{base::layout(~{::section})}">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>jsdg</title>
+</head>
+
+<body>
+	<section>
+		<div class="row">
+			<div class="col-md-10 offset-md-1 mt-3">
+				<div class="card card-sh">
+					<div class="card-header text-center">
+						<p class="fs-4 fw-bold">My Products</p>
+						<th:block th:if="${session.succMsg}">
+							<p class="text-success fw-bold">[[${session.succMsg}]]</p>
+							<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+						</th:block>
+						<th:block th:if="${session.errMsg}">
+							<p class="text-danger fw-bold">[[${session.errMsg}]]</p>
+							<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+						</th:block>
+					</div>
+					<div class="card-body p-4">
+
+						<th:block th:if="${productSize>0}">
+
+							<table class="table">
+								<thead>
+									<tr>
+										<th scope="col">S.no</th>
+										<th scope="col">Image</th>
+										<th scope="col">Ttile</th>
+										<th scope="col">Category</th>
+										<th scope="col">Price</th>
+										<th scope="col">Discount</th>
+										<th scope="col">Discount Price</th>
+										<th scope="col">Stock</th>
+										<th scope="col">Status</th>
+										<th scope="col">Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="p,c:${products}">
+										<th scope="row">[[${c.count}]]</th>
+										<td>
+											<img th:src="@{'/img/product_img/'+${p.image}}" width="50px" height="50px">
+										</td>
+										<td>[[${p.title}]]</td>
+										<td>[[${p.category}]]</td>
+										<td>[[${p.price}]]</td>
+										<td>[[${p.discount}]]</td>
+										<td>[[${p.discountPrice}]]</td>
+										<td>[[${p.stacks}]]</td>
+										<td>[[${p.isActive}]]</td>
+										<td>
+											<a th:href="@{'/user/editProduct/'+${p.id}}" class="btn btn-sm btn-primary">
+												<i class="fa-solid fa-pen-to-square"></i> Edit</a>
+											<a th:href="@{'/user/deleteProduct/'+${p.id}}"
+												class="btn btn-sm btn-danger">
+												<i class="fa-regular fa-trash-can"></i>Delete</a>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<div class="text-center">
+								<a href="/user/addProducts" class="btn btn-primary text-center">Add Product</a>
+							</div>
+
+						</th:block>
+
+						<th:block th:unless="${productSize>0}">
+							<p class="text-center fs-4 fw-bold mt-4 text-danger">Products not available</p>
+							<div class="text-center">
+								<a href="/user/addProducts" class="btn btn-primary text-center">Add Product</a>
+							</div>
+						</th:block>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+
+</html>

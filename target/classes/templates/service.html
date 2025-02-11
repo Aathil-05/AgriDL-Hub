@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{base::layout(~{::section})}">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Home</title>
+	<style>
+
+	</style>
+</head>
+
+<body>
+
+	<section>
+		<div class="row mb-0">
+			<div class="col-md-6 border" id="ser">
+				<form action="/home/data-processing" method="post" enctype="multipart/form-data">
+					<div class="upload-container" id="upload-container">
+						<p>Drag and drop a file here or click to upload</p>
+						<input type="file" id="file-input" name="file"
+							accept="image/png, image/jpeg, image/jpg, image/gif" style="display: none;" />
+						<div id="file-info" style="display: none;">
+							<div class="file-name">
+								<span id="file-name"></span>
+								<button type="reset" class="remove-button" id="remove-button">X</button>
+							</div>
+						</div>
+
+					</div>
+					<p id="error-message" class="error-message"></p>
+					<button type="submit" id="submit-button" class="text-center">Submit</button>
+				</form>
+			</div>
+
+			<div class="col-md-6 border">
+				<div class="row">
+					<div class="col-md-12 fs-2 text-center my-5 border-bottom">
+						
+						<div th:if="${succMsg}">
+							<p th:text="${succMsg}" class="text-success"></p>
+						</div>
+
+						<!-- Display Error Message -->
+						<div th:if="${errMsg}">
+							<p th:text="${errMsg}" class="text-danger"></p>
+						</div>
+					</div>
+					<div class="col-md-12">
+						<div th:if="${succMsg}">
+							<p>Prediction: <span id="prediction-text" th:text="${prediction}"></span></p>
+							<p>Confidence: <span id="confidence-text" th:text="${confidence}"></span></p>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+	</section>
+
+</body>
+
+</html>

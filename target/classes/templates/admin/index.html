@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{base::layout(~{::section})}">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Home</title>
+</head>
+
+<body>
+
+	<section>
+		<div class="container p-4 my-5">
+			<div class="text-center fs-3 fw-bold">Admin Dashboard</div>
+			<div class="row mt-4">
+
+				<div class="col-md-4">
+					<a href="/admin/addAdmin" class="text-decoration-none">
+						<div class="card card-sh">
+							<div class="card-body text-center text-primary">
+								<i class="fa-solid fa-user-plus fs-2"></i>
+								<h4>Add Admin</h4>
+							</div>
+						</div>
+					</a>
+				</div>
+
+				<div class="col-md-4">
+					<a href="/admin/category" class="text-decoration-none">
+						<div class="card card-sh">
+							<div class="card-body text-center text-danger">
+								<i class="fa-solid fa-list fs-2"></i>
+								<h4>Category</h4>
+							</div>
+						</div>
+					</a>
+				</div>
+
+				<div class="col-md-4">
+					<a href="/admin/orders" class="text-decoration-none">
+						<div class="card card-sh">
+							<div class="card-body text-center text-warning">
+								<i class="fa-solid fa-truck-fast fs-2"></i>
+								<h4>Order Details</h4>
+							</div>
+						</div>
+					</a>
+				</div>
+			</div>
+			<div class="row mt-4">
+
+				<div class="col-md-4">
+					<a href="/admin/users?type=1" class="text-decoration-none">
+						<div class="card card-sh">
+							<div class="card-body text-center text-success">
+								<i class="fa-solid fa-circle-user fs-2"></i>
+								<h4>User Datails</h4>
+							</div>
+						</div>
+					</a>
+				</div>
+
+				<div class="col-md-4">
+					<a href="/admin/addproduct" class="text-decoration-none">
+						<div class="card card-sh">
+							<div class="card-body text-center text-success">
+								<i class="fa-solid fa-square-plus fs-2"></i>
+								<h4>Add Product</h4>
+							</div>
+						</div>
+					</a>
+				</div>
+
+				<div class="col-md-4">
+					<a href="/admin/viewProducts" class="text-decoration-none">
+						<div class="card card-sh">
+							<div class="card-body text-center text-success">
+								<i class="fa-solid fa-book-open fs-2"></i>
+								<h4>View Product</h4>
+							</div>
+						</div>
+					</a>
+				</div>
+
+			</div>
+
+			<div class="row mt-4">
+				<div class="col-md-4 offset-md-4">
+					<a href="/admin/users?type=2" class="text-decoration-none">
+						<div class="card card-sh">
+							<div class="card-body text-center text-primary">
+								<i class="fa-solid fa-user fs-2"></i>
+								<h4>View Admins</h4>
+							</div>
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+</body>
+
+</html>

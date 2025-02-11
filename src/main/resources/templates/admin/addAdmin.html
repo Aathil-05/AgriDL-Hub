@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{base::layout(~{::section})}">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Home</title>
+</head>
+
+<body>
+
+	<section>
+		<div class="container w-50 my-3">
+			<div class="card card-sh shadow bg-body-tertiary rounded">
+				<div class="card-header text-center">
+					<p class="fs-3 fw-bold">Add Admin</p>
+					<th:block th:if="${session.succMsg}">
+						<p class="text-success fs-2">[[${session.succMsg}]]</p>
+						<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+					</th:block>
+					<th:block th:if="${session.errMsg}">
+						<p class="text-danger fs-2">[[${session.errMsg}]]</p>
+						<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+					</th:block>
+				</div>
+				<div class="card-body">
+					<form action="/admin/saveAdmin" method="post" enctype="multipart/form-data">
+						<div class="row mb-3">
+							<div class="col-md-6">
+								<label class="form-label" aria-required="true">Full Name</label>
+								<input type="text" name="name" class="form-control">
+							</div>
+							<div class="col-md-6">
+								<label class="form-label" aria-required="true">Phone number</label>
+								<input type="text" name="phone" class="form-control">
+							</div>
+						</div>
+						<div class="row mb-3">
+							<div class="col-md-12">
+								<label class="form-label" aria-required="true">Email</label>
+								<input type="email" name="email" class="form-control">
+							</div>
+						</div>
+						<div class="row mb-3">
+							<div class="col-md-6">
+								<label class="form-label" aria-required="true">Password</label>
+								<input type="password" name="password" class="form-control">
+							</div>
+							<div class="col-md-6">
+								<label class="form-label" aria-required="true">Confirm Password</label>
+								<input type="Password" name="cpassword" class="form-control">
+							</div>
+						</div>
+						<div class="row mb-3">
+							<div class="col-md-6">
+								<label class="form-label" aria-required="true">House/ Plat No.</label>
+								<input type="text" name="houseNo" class="form-control">
+							</div>
+							<div class="col-md-6">
+								<label class="form-label" aria-required="true">Street/ area/ locality</label>
+								<input type="text" name="street" class="form-control">
+							</div>
+						</div>
+						<div class="row mb-3">
+							<div class="col-md-6">
+								<label class="form-label" aria-required="true">Place</label>
+								<input type="text" name="place" class="form-control">
+							</div>
+							<div class="col-md-6">
+								<label class="form-label" aria-required="true">Pincode</label>
+								<input type="text" name="pincode" class="form-control">
+							</div>
+						</div>
+						<div class="row mb-3">
+							<div class="col-md-6">
+								<label class="form-label" aria-required="true">District</label>
+								<input type="text" name="district" class="form-control">
+							</div>
+							<div class="col-md-6">
+								<label class="form-label" aria-required="true">State</label>
+								<input type="text" name="state" class="form-control">
+							</div>
+						</div>
+						<div class="mb-3">
+							<div class="col-md-12">
+								<label class="form-label" aria-required="true">Upload profile image</label>
+								<input type="file" name="image" class="form-control">
+							</div>
+						</div>
+
+						<button type="submit" class="btn btn-primary col-md-12 p-2">Submit</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+
+</body>
+
+</html>

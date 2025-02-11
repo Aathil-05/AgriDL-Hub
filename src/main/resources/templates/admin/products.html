@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{base::layout(~{::section})}">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>jsdg</title>
+</head>
+
+<body>
+	<section>
+		<div class="container-fluid mt-3">
+			<div class="row">
+				<p class="text-center fs-2">All Products</p>
+				<hr>
+				<a href="/admin/" class="text-decoration-none"><i class="fa-solid fa-arrow-left"></i> Back</a>
+				<th:block th:if="${session.succMsg}">
+					<p class="text-success fw-bold text-center">[[${session.succMsg}]]</p>
+					<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+				</th:block>
+				<th:block th:if="${session.errMsg}">
+					<p class="text-danger fw-bold text-center">[[${session.errMsg}]]</p>
+					<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+				</th:block>
+
+				<div class="col-md-12 p-2">
+					<form action="/admin/viewProducts" method="get">
+						<div class="row">
+
+							<div class="col-auto">
+								<input type="text" class="form-control" name="ch" placeholder="Enter product name">
+							</div>
+							<div class="col-auto">
+								<button class="btn btn-primary">Search</button>
+							</div>
+
+						</div>
+					</form>
+				</div>
+				<div class="col-md-12">
+					<div class="card-body p-2">
+						<table class="table table-bordered">
+							<thead class="table-light">
+								<tr>
+									<th scope="col">S.no</th>
+									<th scope="col">Name</th>
+									<th scope="col">Image</th>
+									<th scope="col">Ttile</th>
+									<th scope="col">Category</th>
+									<th scope="col">Price</th>
+									<th scope="col">Discount</th>
+									<th scope="col">Discount Price</th>
+									<th scope="col">Stock</th>
+									<th scope="col">Status</th>
+									<th scope="col">Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="p,c:${products}">
+									<th scope="row">[[${c.count}]]</th>
+									<td>[[${user.name}]]</td>
+									<td>
+										<img th:src="@{'/img/product_img/'+${p.image}}" width="50px" height="50px">
+									</td>
+									<td>[[${p.title}]]</td>
+									<td>[[${p.category}]]</td>
+									<td>[[${p.price}]]</td>
+									<td>[[${p.discount}]]</td>
+									<td>[[${p.discountPrice}]]</td>
+									<td>[[${p.stacks}]]</td>
+									<td>[[${p.isActive}]]</td>
+									<td>
+										<a th:href="@{'/admin/editProduct/'+${p.id}}" class="btn btn-sm btn-primary"><i
+												class="fa-solid fa-pen-to-square"></i>
+											Edit</a>
+										<a th:href="@{'/admin/deleteProduct/'+${p.id}}" class="btn btn-sm btn-danger"><i
+												class="fa-regular fa-trash-can"></i>
+											Delete</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+
+						<!-- Start pagination-->
+
+						<div class="row mt-5">
+							<div class="col-md-4">Total Products : [[${totalElements}]]</div>
+							<div class="col-md-6 offse-md-2">
+								<nav aria-label="Page navigation example">
+									<ul class="pagination">
+										<li class="page-item">
+											<a class="page-link" th:classappend="${isFirst} ? 'disabled' : '' "
+												th:href="@{'/admin/viewProducts?pageNo='+${pageNo-1}}"
+												aria-label="Previous">
+												<span aria-hidden="true">&laquo;</span>
+											</a>
+										</li>
+
+										<li th:each="i:${#numbers.sequence(1,totalPages)}" class="page-item"
+											th:classappend="${pageNo+1==i}?'active':''">
+											<a class="page-link"
+												th:href="@{'/admin/viewProducts?pageNo='+${i-1}}">[[${i}]]</a>
+										</li>
+
+										<li class="page-item">
+											<a class="page-link" th:classappend="${isLast} ? 'disabled' : '' "
+												th:href="@{'/admin/viewProducts?pageNo='+${pageNo+1}}"
+												aria-label="Next">
+												<span aria-hidden="true">&raquo;</span>
+											</a>
+										</li>
+									</ul>
+								</nav>
+							</div>
+						</div>
+
+						<!-- End pagination-->
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+
+</html>

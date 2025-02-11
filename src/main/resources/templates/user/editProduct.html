@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{base::layout(~{::section})}">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Home</title>
+</head>
+
+<body>
+
+	<section>
+		<div class="container p-5 mt-3">
+			<div class="row">
+				<div class="col-md-8 offset-md-2">
+					<div class="card card-sh">
+						<div class="card-header text-center fs-4 fw-bold">
+							<p class="fs-4">Edit Product</p>
+							<th:block th:if="${session.succMsg}">
+								<p class="text-success fw-bold">[[${session.succMsg}]]</p>
+								<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+							</th:block>
+							<th:block th:if="${session.errMsg}">
+								<p class="text-danger fw-bold">[[${session.errMsg}]]</p>
+								<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+							</th:block>
+
+						</div>
+						<div class="card-body">
+							<form action="/user/updateProduct" method="post" enctype="multipart/form-data">
+								<input type="hidden" name="id" th:value="${product.id}">
+								<div class="row">
+									<div class="col-md-6">
+										<div class="mb-3">
+											<label class="form-label">Upload product image</label>
+											<input type="file" name="file" class="form-control">
+										</div>
+										<div class="mb-3">
+											<img th:src="@{'/img/product_img/'+${product.image}}" width="100px"
+												height="100px">
+										</div>
+										<div class="mb-3">
+											<label class="form-label">Enter Description</label>
+											<textarea type="text" name="description" class="form-control"
+												style="height: 170px;">[[${product.description}]]</textarea>
+										</div>
+										<div class="mb-3">
+											<label>Status</label><br>
+
+											<input class="form-check-input" type="radio" name="isActive"
+												th:checked="${product.isActive == true}" id="flexRadioDefault1"
+												value="true" checked>
+											<label class="form-check-label" for="flexRadioDefault1">
+												Active
+											</label>
+
+
+											<input class="form-check-input" type="radio" name="isActive"
+												th:checked="${product.isActive == false}" id="flexRadioDefault2"
+												value="false">
+											<label class="form-check-label" for="flexRadioDefault2">
+												Inactive
+											</label>
+
+										</div>
+									</div>
+
+									<div class="col-md-6">
+										<div class="mb-3">
+											<label class="form-label">Enter Title</label>
+											<input type="text" name="title" th:value="${product.title}"
+												class="form-control">
+										</div>
+
+										<div class="mb-3">
+											<label class="form-label">Choose category</label>
+											<select class="form-select" name="category"
+												th:selected="${product.category}" aria-label="Default select example">
+												<option>[[${product.category}]]</option>
+												<option th:each="c:${category}">[[${c.name}]]</option>
+											</select>
+										</div>
+										<div class="mb-3">
+											<label class="form-label">Rs/kg</label>
+											<input type="text" name="price" th:value="${product.price}"
+												class="form-control">
+										</div>
+										<div class="mb-3">
+											<label class="form-label">Stack info</label><br>
+											<input type="text" name="stacks" th:value="${product.stacks}"
+												class="form-control">
+										</div>
+										<div class="mb-3">
+											<label class="form-label">Discount</label>
+											<input type="number" name="discount" th:value="${product.discount}"
+												class="form-control">
+										</div>
+
+										<div class="mb-3">
+											<label class="form-label">Discount Price</label>
+											<input type="number" name="discountPrice"
+												th:value="${product.discountPrice}" class="form-control">
+										</div>
+									</div>
+								</div>
+								<button type="submit" class="btn btn-primary col-md-12 p-2">Update</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+
+</html>
