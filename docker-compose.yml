@@ -6,7 +6,7 @@ services:
       - "8000:8000"
 
   springboot:
-    build: ./springboot
+    build: ./
     ports:
       - "8080:8080"
     depends_on:
